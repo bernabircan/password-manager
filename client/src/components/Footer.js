@@ -10,19 +10,25 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         paddingBlockEnd:0,
+        background: ' rgb(2, 40, 115) ',
+        
     },
-    
+    font:{
+        fontFamily:'Roboto, sans-serif',
+        fontWeight: 700,
+        marginLeft: 350,
+    },
 }));
 
 
 export default function Footer() {
     const classes = useStyles();
     return (
-        <AppBar position="relative" color="primary">
+        <AppBar  className={classes.root} position="center" color="primary">
             <Container maxWidth="md">
                 <Toolbar>
-                    <Typography variant="body1" color="inherit">
-                        &copy; 2019 Gistia
+                    <Typography   className={classes.font}  >
+                        ORION INOVATION
                     </Typography>
                 </Toolbar>
             </Container>

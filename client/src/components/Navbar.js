@@ -10,15 +10,19 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 
+
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../context/mainContext"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    background: ' rgb(2, 40, 115) ',
+
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    
   },
   title: {
     flexGrow: 1,
@@ -26,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: 700,
+  
   },
   search: {
     position: 'relative',
@@ -51,9 +58,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   inputRoot: {
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: 550,
     color: 'inherit',
+    
   },
   inputInput: {
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: 550,
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
@@ -65,6 +77,32 @@ const useStyles = makeStyles((theme) => ({
         width: '20ch',
       },
     },
+    
+  },
+  button:{
+    backgroundColor: "Transparent",
+    backgroundRepeat:"no-repeat",
+    border: "white",
+    cursor:"pointer",
+    overflow: "hidden",
+    fontFamily: 'Roboto, sans-serif',
+    fontWeight: 550,
+    color: "white",
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+    
+  
+
   },
 }));
 
@@ -103,7 +141,7 @@ useEffect(() => {
   return (
     <div className={classes.root}>
         <React.Fragment>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -118,7 +156,7 @@ useEffect(() => {
           </Typography>
           <div>
           
-          <Button variant="contained" color="default" onClick={ handleClickOpen} >
+          <Button className={classes.button} onClick={ handleClickOpen} >
             Add Password
           </Button>
           </div>

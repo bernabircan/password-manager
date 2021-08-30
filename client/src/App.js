@@ -30,7 +30,7 @@ function App() {
   const [address, setAddress] = useState("");
   const [val, setVal] = useState(null);
 
- 
+
 
   const [open, setOpen] = React.useState(false); //snack barda böyle tanımlanıyo bu ya neden burda
   useEffect(() => {
@@ -46,26 +46,26 @@ function App() {
   };
 
   const handleSave = (val) => {
-    if(val?.id==null){
+    if (val?.id == null) {
       setIsLoading(true)
       addPassword(lab, password, name, address).then(() => {
         handleClose()
         setIsLoading(false)
-        
+
       })
-    }else {
+    } else {
       setIsLoading(true)
       updatePassword(val).then(() => {
         handleClose()
         setIsLoading(false)
-        
+
       });
-      console.log("val",val);
+      console.log("val", val);
 
 
     }
-    
-   
+
+
   };
   //surdan sonrası karışmıs bende
 
@@ -147,28 +147,18 @@ function App() {
       <Grid container spacing={4}
         alignItems="center"
         justify="center"
-        style={{ marginTop: 45 }}
-
-
+        style={{ marginTop: 45 }} 
       >
-        <SnackBar
-          isOpen={snackBar.isOpen}  //sunlar initial snack barın özellikleri mi???
-          severity={snackBar.severity}
-          hideDuration={snackBar.hideDuration}
-          message={snackBar.message}
-          onCloseFunc={snackBar.onCloseFunc}
-
-        />
-        <Grid item xs={12}>
-          <Navbar open={open}
-            setOpen={setOpen}/>
+        <Navbar open={open}
+          setOpen={setOpen} />
+        <Grid item xs={12} >
+        </Grid>
+        <Grid item xs={12} >
+          <Table setOpen={setOpen} setVal={setVal} />
         </Grid>
         <Grid item xs={12}>
-          
           <DialogForm
-            
             labPasswordValues={state.labPasswordValues} //labpasswordvalues?????
-            
             handleSave={handleSave}
             open={open}
             setOpen={setOpen}
@@ -183,18 +173,22 @@ function App() {
             setAddress={setAddress}
             val={val}
             updatePassword={updatePassword}
-           
           />
         </Grid>
-
-        <Grid item xs={12} >
-          <Table setOpen={setOpen} setVal={setVal} />
-        </Grid>
-        
+        <SnackBar
+          isOpen={snackBar.isOpen}  //sunlar initial snack barın özellikleri mi???
+          severity={snackBar.severity}
+          hideDuration={snackBar.hideDuration}
+          message={snackBar.message}
+          onCloseFunc={snackBar.onCloseFunc}
+        />
         <Footer />
       </Grid>
-
+       
+      
     </div>
+    
+
   );
 }
 
