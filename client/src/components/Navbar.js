@@ -115,7 +115,7 @@ export default function SearchAppBar(props) {
 
   const handleClickOpen = () => {
     setOpen(true);
-    setLab("");
+    //setLab("");
   };
 
  

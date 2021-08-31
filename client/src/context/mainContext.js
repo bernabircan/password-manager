@@ -80,10 +80,16 @@ const deletePassword = dispatch => async (id) => {
     }
 }
 
-const updatePassword = dispatch => async (val) => {
-    console.log('val123',val)
-    console.log('updateID: ', val.id)
-    const response = await Axios.put(`http://localhost:3001/updatepassword/${val}`)
+const updatePassword = dispatch => async (lab, password, name, address,id) => {
+    
+    console.log('updateID: ', id);
+    const response = await Axios.put(`http://localhost:3001/updatepassword/${id}`, {
+        lab: lab,
+        name: name,
+        address: address,
+        password: password,
+        id:id,
+    })
    // console.log('RESPONSE:', response)
     
     if (response.statusText === 'OK') {

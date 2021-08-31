@@ -47,6 +47,8 @@ function App() {
 
   const handleSave = (val) => {
     if (val?.id == null) {
+       
+       
       setIsLoading(true)
       addPassword(lab, password, name, address).then(() => {
         handleClose()
@@ -55,12 +57,14 @@ function App() {
       })
     } else {
       setIsLoading(true)
-      updatePassword(val).then(() => {
+      console.log("valttt", val);
+      updatePassword(lab, password, name,address,val.id).then(() => {
+      console.log('password',password)
+        console.log("bilgiler",lab,password, name, address,val.id);
         handleClose()
         setIsLoading(false)
-
       });
-      console.log("val", val);
+     
 
 
     }
@@ -172,6 +176,7 @@ function App() {
             address={address}
             setAddress={setAddress}
             val={val}
+            setVal={setVal}
             updatePassword={updatePassword}
           />
         </Grid>

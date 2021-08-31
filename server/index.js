@@ -104,11 +104,15 @@ app.delete("/deletepassword/:id",(req,res)=>{
 });
 
 app.put("/updatepassword/:id",(req,res)=>{
-     console.log("update");
+     //console.log("update");
      //const{password}= req.body;
      //const hashedPassword= encrypt(password);
      const{password,lab,name,address}= req.body;
-     const id = req.params.val.id;
+     //const hashedPassword= encrypt(password);
+     const id = req.params.id;
+
+   
+    
     
    db.query(
         "UPDATE passwords SET lab=?,name=?,address=?,password=? WHERE id=?",
@@ -119,7 +123,7 @@ app.put("/updatepassword/:id",(req,res)=>{
                 
                 console.log("err");
             }else{
-                
+                console.log(result);
                 res.send("Success");
 
             }

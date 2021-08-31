@@ -28,7 +28,7 @@ export default function Footer() {
             <Container maxWidth="md">
                 <Toolbar>
                     <Typography   className={classes.font}  >
-                        ORION INOVATION
+                        ORION INNOVATION
                     </Typography>
                 </Toolbar>
             </Container>
