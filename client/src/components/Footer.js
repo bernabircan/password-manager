@@ -8,9 +8,14 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        paddingBlockEnd:0,
-        background: ' rgb(2, 40, 115) ',
+       
+       
+        background:' rgb(2, 40, 115) ',
+        
+        alignItems: "center",
+        justifyContent: "center",
+        
+        
         
     },
     font:{
@@ -24,8 +29,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Footer() {
     const classes = useStyles();
     return (
-        <AppBar  className={classes.root} position="center" color="primary">
-            <Container maxWidth="md">
+        
+        <AppBar  className={classes.root}  position="center" color="primary">
+            <Container maxWidth="md" >
                 <Toolbar>
                     <Typography   className={classes.font}  >
                         ORION INNOVATION
@@ -33,5 +39,6 @@ export default function Footer() {
                 </Toolbar>
             </Container>
         </AppBar>
+       
     )
 }

@@ -24,12 +24,7 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(true)
 
-  const [password, setPassword] = useState("");
-  const [lab, setLab] = useState("");
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
   const [val, setVal] = useState(null);
-
 
 
   const [open, setOpen] = React.useState(false); //snack barda böyle tanımlanıyo bu ya neden burda
@@ -38,13 +33,13 @@ function App() {
       setIsLoading(false)
     })
   }, []);
-
+   /*
   const handleClose = () => {
     setOpen(false);
     setVal(null);
 
   };
-
+  
   const handleSave = (val) => {
     if (val?.id == null) {
        
@@ -72,7 +67,7 @@ function App() {
 
   };
   //surdan sonrası karışmıs bende
-
+  */
   useEffect(() => {
     if (state.error) {
       setSnackBar({
@@ -87,7 +82,7 @@ function App() {
 
 
   useEffect(() => {
-    console.log('STATE-Success: ', state)
+    //console.log('STATE-Success: ', state)
     if (state.success) {
       setSnackBar({
         isOpen: true,
@@ -163,21 +158,14 @@ function App() {
         <Grid item xs={12}>
           <DialogForm
             labPasswordValues={state.labPasswordValues} //labpasswordvalues?????
-            handleSave={handleSave}
             open={open}
             setOpen={setOpen}
-            handleClose={handleClose}
-            password={password}
-            setPassword={setPassword}
-            lab={lab}
-            setLab={setLab}
-            name={name}
-            setName={setName}
-            address={address}
-            setAddress={setAddress}
             val={val}
             setVal={setVal}
             updatePassword={updatePassword}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            addPassword={addPassword}
           />
         </Grid>
         <SnackBar
@@ -187,9 +175,15 @@ function App() {
           message={snackBar.message}
           onCloseFunc={snackBar.onCloseFunc}
         />
-        <Footer />
+        
       </Grid>
-       
+      <Grid container spacing={4}
+        alignItems="center"
+        justify="center"
+        style={{ marginTop: 45 }} 
+      >
+      <Footer />
+      </Grid>
       
     </div>
     

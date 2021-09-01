@@ -113,7 +113,7 @@ const search = dispatch => async (searchText) => {
 
     
 }
-console.log("initialState",initialState);
+
 export const { Context, Provider } = dataContext(
     packageReducer,
     {

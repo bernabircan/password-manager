@@ -134,7 +134,7 @@ useEffect(() => {
   }
   search(searchText);
   //getPasswordList();
-  console.log("işlem tamam");
+ // console.log("işlem tamam");
 }, [searchText]);
 
 

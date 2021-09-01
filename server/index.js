@@ -58,19 +58,18 @@ app.post("/decryptpassword",(req,res)=>{
 app.post("/addpassword",(req,res)=>{
     
     const{password,lab,name,address}= req.body;
-    const hashedPassword= encrypt(password);
+    
     
     db.query(
-        "INSERT INTO passwords (iv,lab,name,address,password) VALUES (?,?,?,?,?)",
+        "INSERT INTO passwords (lab,name,address,password) VALUES (?,?,?,?)",
         
-        [hashedPassword.iv,lab,name,address,hashedPassword.password],
+        [lab,name,address,password],
         (err,result)=>{
             if(err){
                 
                 console.log("err");
             }else{
-                console.log(hashedPassword.password);
-                console.log(hashedPassword.iv);
+                
                 console.log(lab);
                 res.send("Success");
 
@@ -110,7 +109,7 @@ app.put("/updatepassword/:id",(req,res)=>{
      const{password,lab,name,address}= req.body;
      //const hashedPassword= encrypt(password);
      const id = req.params.id;
-
+     
    
     
     

@@ -34,47 +34,92 @@ const useStyles = makeStyles((theme) => ({
 const DialogForm = (props) => {
   const classes = useStyles();
 
-  const { labPasswordValues, handleSave, open, updatePassword, handleClose, password, setPassword, lab, setLab, name, setName, address, setAddress, val, setVal } = props;
-  //console.log("props",labPasswordValues);
-  console.log("props", labPasswordValues);
-  console.log("open", open);
-  console.log("val", val);
+  const { labPasswordValues, open, updatePassword,
+    val, setVal, setOpen, setIsLoading, addPassword } = props;
+
+
+  const [password, setPassword] = useState("");
+  const [lab, setLab] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
   const [selectedLab, setSelectedLab] = React.useState('');
-  
+  const [errorLab, setErorrLab] = React.useState('');
+  const [errorName, setErorrName] = React.useState('');
+  const [errorAddress, setErorrAddress] = React.useState('');
+  const [errorPassword, setErorrPassword] = React.useState('');
+  const [isValid,setIsValid]=React.useState(true);
+
+  useEffect(() => {
+    setErorrPassword('')
+  }, [open])
+
+  useEffect(() => {
+    if (val?.id) {
+      setLab(val.lab);
+      setName(val.name);
+      setAddress(val.address);
+      setPassword(val.password);
+      setSelectedLab(val.lab)
+    }
+    else {
+      setSelectedLab('');
+    }
+  }, [val])
 
 
   useEffect(() => {
-    if (open) {
-      //setVal(null)
-    }
-  }, [open])
-
-  /*
-    useEffect(() => {
-      console.log("TESTTTT")
-      if (val) {
-        console.log('SETTINGLAB: ', val)
-        setLab(val.lab)
-      }
-    }, [val])
-  */
+    setIsValid(true)
     
-    useEffect(() => {
-      if(val?.id ){
-        setLab(val.lab);
-        setName(val.name);
-        setAddress(val.address);
-        setPassword(val.password);
-        setSelectedLab(val.lab)          
-      }
-      else{
-        setSelectedLab('');
-      }
-    }, [val])
-  
-     console.log("selectedlab",selectedLab);
+    if (name === null || name === "") {
+      setErorrName('dldldldldlldldld')
+      setIsValid(false)
+    } else {
+      setErorrName('')
+    }
+    if (address === null || address === "") {
+      setErorrAddress('dldldldldlldldld')
+      setIsValid(false)
+    }
+    else { 
+      setErorrAddress('')
+     }
+    if (lab === null || lab === "") { 
+      setErorrLab('dldldldldlldldld')
+      setIsValid(false)
+     }
+    else {
+       setErorrLab('')
+       }
+  }, [password, name, address, lab])
 
 
+
+
+  const handleClose = () => {
+    setOpen(false);
+    setVal(null);
+  };
+
+
+
+  const handleSave = (val) => {
+    if(isValid){
+    if (val?.id == null) {
+      setIsLoading(true)
+      addPassword(lab, password, name, address).then(() => {
+        handleClose()
+        setIsLoading(false)
+      })
+    } else {
+      setIsLoading(true)
+      
+      updatePassword(lab, password, name, address, val.id).then(() => {
+        handleClose()
+        setIsLoading(false)
+      });
+    }
+  }
+  };
 
 
 
@@ -98,6 +143,13 @@ const DialogForm = (props) => {
             onChange={(event) => {
               setSelectedLab(event.target.value);
               setLab(event.target.value);
+              if (event.target.value === null || event.target.value === "") {
+                setErorrLab('Please enter your lab')
+                setIsValid(false)
+              } else {
+                setErorrLab('')
+              } 
+              
             }}
             id="standard-select-currency"
             select
@@ -106,7 +158,9 @@ const DialogForm = (props) => {
             helperText="Please select your lab"
             fullWidth
             margin="dense"
-            
+            error={errorLab ? true : false}
+            helperText={errorLab ? errorLab : "bosluk yok"}
+
 
           >
             {labList.map((option) => (
@@ -119,9 +173,19 @@ const DialogForm = (props) => {
             type="text"
             defaultValue={val?.name}
             placeholder="Ex. name"
-            onChange={(event) => { setName(event.target.value); }}
+            onChange={(event) => { 
+              setName(event.target.value);
+              if (event.target.value === null || event.target.value === "") {
+                setErorrName('Please enter your name')
+                setIsValid(false)
+              } else {
+                setErorrName('')
+              } 
+            }}
             fullWidth
             margin="dense"
+            error={errorName ? true : false}
+            helperText={errorName ? errorName : "bosluk yok"}
           />
           <TextField
             type="text"
@@ -129,17 +193,36 @@ const DialogForm = (props) => {
             placeholder="Ex. address"
             onChange={(event) => {
               setAddress(event.target.value);
+               if (event.target.value === null || event.target.value === "") {
+                setErorrAddress('Please enter your address')
+                setIsValid(false)
+              } else {
+                setErorrAddress('')
+              }
+              
             }}
             fullWidth
             margin="dense"
+            error={errorAddress ? true : false}
+            helperText={errorAddress ? errorAddress : "bosluk yok"}
           />
           <TextField
             type="text"
             defaultValue={val?.password}
             placeholder="Ex. password123"
-            onChange={(event) => { setPassword(event.target.value); }}
+            onChange={(event) => {
+               setPassword(event.target.value); 
+               if (event.target.value === null || event.target.value === "") {
+                setErorrPassword('Please select your password')
+                setIsValid(false)
+              } else {
+                setErorrPassword('')
+              }
+            }}
             fullWidth
             margin="dense"
+            error={errorPassword ? true : false}
+            helperText={errorPassword ? errorPassword : "bosluk yok"}
           />
 
         </DialogContent>
