@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "./context/mainContext"
@@ -10,9 +9,7 @@ ReactDOM.render(
     <Provider>
       <App />
     </Provider>
-
-
-  </React.StrictMode>,
+    </React.StrictMode>,
   document.getElementById('root')
 );
 

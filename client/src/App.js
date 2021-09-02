@@ -3,16 +3,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "./context/mainContext"
 import Navbar from './components/Navbar';
 import Table from './components/Table';
-
 import Grid from '@material-ui/core/Grid';
 import DialogForm from './components/DialogForm';
 import SnackBar from './components/SnackBar';
 import Loading from './components/Loading';
 import Footer from './components/Footer';
 
-//snack bar dialog form deli karışmış heee
-function App() {
 
+function App() {
   const {
     state,
     getPasswordList,
@@ -20,54 +18,18 @@ function App() {
     deletePassword,
     updatePassword,
     search,
-  } = useContext(Context) //bunu yaptıktan sonra methodları ve state'İ bu sayfada kullanabiliyoz sanırım
+  } = useContext(Context) 
 
   const [isLoading, setIsLoading] = useState(true)
-
   const [val, setVal] = useState(null);
-
-
-  const [open, setOpen] = React.useState(false); //snack barda böyle tanımlanıyo bu ya neden burda
+  const [open, setOpen] = React.useState(false);
+  
   useEffect(() => {
     getPasswordList().then(() => {
       setIsLoading(false)
     })
   }, []);
-   /*
-  const handleClose = () => {
-    setOpen(false);
-    setVal(null);
 
-  };
-  
-  const handleSave = (val) => {
-    if (val?.id == null) {
-       
-       
-      setIsLoading(true)
-      addPassword(lab, password, name, address).then(() => {
-        handleClose()
-        setIsLoading(false)
-
-      })
-    } else {
-      setIsLoading(true)
-      console.log("valttt", val);
-      updatePassword(lab, password, name,address,val.id).then(() => {
-      console.log('password',password)
-        console.log("bilgiler",lab,password, name, address,val.id);
-        handleClose()
-        setIsLoading(false)
-      });
-     
-
-
-    }
-
-
-  };
-  //surdan sonrası karışmıs bende
-  */
   useEffect(() => {
     if (state.error) {
       setSnackBar({
@@ -80,9 +42,7 @@ function App() {
     }
   }, [state.error])
 
-
   useEffect(() => {
-    //console.log('STATE-Success: ', state)
     if (state.success) {
       setSnackBar({
         isOpen: true,
@@ -100,8 +60,7 @@ function App() {
     }
     setSnackBar(initialSnackBar)
   }
-
-
+  
   const initialSnackBar = {
     isOpen: false,
     message: null,
@@ -109,35 +68,9 @@ function App() {
     severity: 'error',
     onCloseFunc: handleSnackBarClose,
   }
-
+  
   const [snackBar, setSnackBar] = useState(initialSnackBar)
-
-
-  /*
-    const decryptPassword = (encryption) => {
-      Axios.post("http://localhost:3001/decryptpassword", {
-        password: encryption.password,
-        iv: encryption.iv,
-      }).then((response) => {
-        console.log(response.data);
   
-        setPasswordList(passwordList.map((val) => {
-          return val.id === encryption.id
-            ? {
-              id: val.id,
-              iv: val.iv,
-              lab: response.data,
-              password: val.password,
-            }
-            : val;
-        })
-        );
-  
-      });
-  
-  
-    };
-   */
   if (isLoading) {
     return <Loading />
   }
@@ -146,18 +79,24 @@ function App() {
       <Grid container spacing={4}
         alignItems="center"
         justify="center"
-        style={{ marginTop: 45 }} 
+        style={{ marginTop: 20 }}
       >
-        <Navbar open={open}
-          setOpen={setOpen} />
+        <Navbar 
+          open={open}
+          setOpen={setOpen} 
+          search={search}
+          getPasswordList={ getPasswordList}
+        />
         <Grid item xs={12} >
         </Grid>
         <Grid item xs={12} >
-          <Table setOpen={setOpen} setVal={setVal} />
+          <Table 
+           setOpen={setOpen} 
+           setVal={setVal} 
+          />
         </Grid>
         <Grid item xs={12}>
           <DialogForm
-            labPasswordValues={state.labPasswordValues} //labpasswordvalues?????
             open={open}
             setOpen={setOpen}
             val={val}
@@ -169,25 +108,17 @@ function App() {
           />
         </Grid>
         <SnackBar
-          isOpen={snackBar.isOpen}  //sunlar initial snack barın özellikleri mi???
+          isOpen={snackBar.isOpen}  
           severity={snackBar.severity}
           hideDuration={snackBar.hideDuration}
           message={snackBar.message}
           onCloseFunc={snackBar.onCloseFunc}
         />
-        
+        <Grid item xs={12}>
+        <Footer />
+        </Grid>
       </Grid>
-      <Grid container spacing={4}
-        alignItems="center"
-        justify="center"
-        style={{ marginTop: 45 }} 
-      >
-      <Footer />
-      </Grid>
-      
     </div>
-    
-
   );
 }
 
